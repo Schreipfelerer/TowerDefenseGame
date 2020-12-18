@@ -6,59 +6,24 @@ import de.ben.engine.Renderer;
 import de.ben.engine.GameObject;
 
 public class Enemy extends GameObject{
-	private int health;
-	private int speed;
-	private int damage;
+	private int health = 50;
+	private int speed = 80;
+	private int damage = 3;
 	private int indexOfPoints;
 	private Board b;
 	private int[] nextPoint;
+	private Game game;
 	
-	public Enemy(String tag, Board b) {
+	public Enemy(String tag, Board b, Game g) {
 		this.tag = tag;
 		this.width = 50;
 		this.height = 50;
 		this.posX = 10f;
 		this.posY = 10f;
-		this.speed = 80;
 		this.indexOfPoints = 0;
 		this.b = b;
 		this.nextPoint = b.getPunkte(indexOfPoints);
-	}
-	
-	public int getHealth() {
-		return health;
-	}
-
-	public void setHealth(int health) {
-		this.health = health;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
-
-	public int getDamage() {
-		return damage;
-	}
-
-	public void setDamage(int damage) {
-		this.damage = damage;
-	}
-
-	@Override
-	public boolean clicked(GameContainer arg0, Input arg1) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void collision(GameContainer arg0, GameObject arg1) {
-		// TODO Auto-generated method stub
-		
+		this.game = g;
 	}
 
 	@Override
@@ -88,5 +53,30 @@ public class Enemy extends GameObject{
 		}
 		//ct = System.nanoTime() - ct;
 		//System.out.println(this.tag+": "+ct);
+	}
+	
+	@Override
+	public boolean clicked(GameContainer arg0, Input arg1) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void collision(GameContainer arg0, GameObject arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public void damage(int damage){
+		this.health -= damage;
+		if(this.health <= 0) {
+			this.kill();
+		}
+	}
+	
+	public void kill(){
+		game.getEnemielist().remove(this);
+		this.setDead(true);
 	}
 }

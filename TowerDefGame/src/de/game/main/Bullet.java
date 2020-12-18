@@ -1,55 +1,60 @@
 package de.game.main;
 
-public class Bullet {
-	private int damage;
-	private int vel;
-	private int f_x;
-	private int f_y;
-	private int ang;
-	private int x;
-	private int y;
+import de.ben.engine.GameContainer;
+import de.ben.engine.GameObject;
+import de.ben.engine.Input;
+import de.ben.engine.Renderer;
+
+public class Bullet extends GameObject{
+	private int damage = 10;
+	private int speed = 500;
+	private Enemy e;
 	
-	
-	public int getDamage() {
-		return damage;
+	public Bullet(Enemy closestEnemy, float posX, float posY, String Tag) {
+		this.tag = Tag;
+		this.posX = posX-5;
+		this.posY = posY-5;
+		this.height = 10;
+		this.width = 10;
+		
+		
+		e = closestEnemy;
 	}
-	public void setDamage(int damage) {
-		this.damage = damage;
+
+	@Override
+	public void render(GameContainer arg0, Renderer r) {
+		r.drawFilledRect((int) this.getPosX(), (int) this.getPosY(), this.width, this.height, 0xffff0000); //WOW Ein Roter Punkt
 	}
-	public int getVel() {
-		return vel;
+
+	@Override
+	public void update(GameContainer arg0, float dt) {
+		if(e.isDead()) {               // Wenn der getargete Gegner bereits Tod ist nicht mehr weiterfliegen
+			this.setDead(true);
+			return;
+		}
+		
+		float dx = e.getPosX() - posX;
+		float dy = e.getPosY() - posY;
+		
+		if(Math.abs(dx) + Math.abs(dy) >= (dt) * speed) {
+			posX += (dx / (Math.abs(dx) + Math.abs(dy))) * (dt) * speed; // X Pos näher zum Gegner
+			posY += (dy / (Math.abs(dx) + Math.abs(dy))) * (dt) * speed; // Y Pos näher zum Gegner
+		}
+		else{ // Wenn Gegner getroffen ist,  dann Ihm Schaden zufügen
+			e.damage(this.damage);
+			setDead(true);
+		}
 	}
-	public void setVel(int vel) {
-		this.vel = vel;
+
+	@Override
+	public boolean clicked(GameContainer arg0, Input arg1) {
+		// TODO Auto-generated method stub
+		return false;
 	}
-	public int getF_x() {
-		return f_x;
-	}
-	public void setF_x(int f_x) {
-		this.f_x = f_x;
-	}
-	public int getF_y() {
-		return f_y;
-	}
-	public void setF_y(int f_y) {
-		this.f_y = f_y;
-	}
-	public int getAng() {
-		return ang;
-	}
-	public void setAng(int ang) {
-		this.ang = ang;
-	}
-	public int getX() {
-		return x;
-	}
-	public void setX(int x) {
-		this.x = x;
-	}
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y = y;
+
+	@Override
+	public void collision(GameContainer arg0, GameObject arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }

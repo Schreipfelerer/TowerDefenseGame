@@ -14,12 +14,11 @@ public class Board extends GameObject{
 	final int Y_POS = 0;
 	private int[][] weg_punkte = {{0,0}, {0, 2}, {4, 2}, {4, 5}, {12, 5}};
 	private TowerPlatz[][] boardPlätze;
-	private int[][][][] wege = new int[X_SIZE][Y_SIZE][30][2];
+	//private int[][][][] wege = new int[X_SIZE][Y_SIZE][30][2];
 	
 	public Board(GameManager gm, Game g) {
 		boardPlätze = new TowerPlatz[X_SIZE][Y_SIZE]; 
 		this.tag = "Board";
-		TowerPlatz tb;
 		for(int i = 0; i<X_SIZE; i++){
 			for(int j = 0; j<Y_SIZE; j++){
 				boardPlätze[i][j] = new TowerPlatz("TP."+(i + (j*Y_SIZE)), i*100+2+X_POS, j*100+2+Y_POS, 96, 96, gm, g);
@@ -29,18 +28,17 @@ public class Board extends GameObject{
 	
 	@Override
 	public boolean clicked(GameContainer arg0, Input arg1) {
-		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 	@Override
-	public void collision(GameContainer arg0, GameObject arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void collision(GameContainer arg0, GameObject arg1) {}
+	
 	@Override
 	public void render(GameContainer gc, Renderer r) {
 		for(int i = 0; i<X_SIZE; i++){
-			for(int j = 0; j<Y_SIZE; j++){
+			for(int j = 0; j<Y_SIZE; j++){ // Zeichnet Schwarze Linine zwischen den Plätzen
 				r.drawFilledRect(i*100+X_POS, j*100+Y_POS, 100, 1, 0xff000000);
 				r.drawFilledRect(i*100+X_POS, (j+1)*100+Y_POS-1, 100, 1, 0xff000000);
 				r.drawFilledRect(i*100+X_POS, j*100+Y_POS, 1, 100, 0xff000000);
@@ -73,8 +71,6 @@ public class Board extends GameObject{
 	}
 	
 	public void updateWegPunkte() {
-		boolean[][] pass = getPassable();
-		
-		
+		//boolean[][] pass = getPassable();
 	}
 }

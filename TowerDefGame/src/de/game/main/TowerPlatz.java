@@ -25,7 +25,7 @@ public class TowerPlatz extends GameObject{
 	@Override
 	public boolean clicked(GameContainer arg0, Input arg1) {
 		if(!isMounted()){
-			mountedTower = new Tower(this.tag+"_T",this.posX, this.posY, this.width, this.height);
+			mountedTower = new Tower(this.tag+"_T",this.posX, this.posY, this.width, this.height, this.g, this.gm);
 			gm.registerNewGameObject(mountedTower);
 		}
 		return false;

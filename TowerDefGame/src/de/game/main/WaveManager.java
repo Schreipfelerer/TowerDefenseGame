@@ -4,14 +4,14 @@ public class WaveManager {
 	private int enemiesToSpawn = 0;
 	private final float SPAWN_EVERY_X_SECS = 1;
 	private float sinceLastSpawn = 0;
-	private Game g;
-	private Board b;
+	private Game game;
+	private Board board;
 	private int EnemyIndex = 0;
 	public boolean isRunning = false;
 	
 	public WaveManager(Game game, Board board) {
-		this.g = game;
-		this.b = board;
+		this.game = game;
+		this.board = board;
 	}
 	
 	public void startNewWave(){
@@ -25,7 +25,7 @@ public class WaveManager {
 				sinceLastSpawn = sinceLastSpawn-SPAWN_EVERY_X_SECS;
 				if(enemiesToSpawn != 0){
 					isRunning = true;
-					g.spawnEnemy(new Enemy("E"+EnemyIndex, b));
+					game.spawnEnemy(new Enemy("E"+EnemyIndex, board, game));
 					EnemyIndex++;
 					enemiesToSpawn--;
 				}

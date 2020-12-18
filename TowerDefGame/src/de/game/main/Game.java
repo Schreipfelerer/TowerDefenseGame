@@ -1,8 +1,6 @@
 package de.game.main;
 import java.util.ArrayList;
 
-import de.ben.engine.*;
-
 /**
  * Das Spiel oder so?
  * 
@@ -11,14 +9,16 @@ import de.ben.engine.*;
  */
 
 public class Game{
-    private int leben;
-    private int geld;
+    private int leben = 100;
+    private int geld = 200;
     private ArrayList<Enemy> enemielist = new ArrayList<Enemy>();
     private GameManager gm;
     private WaveManager wm;
     private Board b;
+    private int BulletCounter = 0;
     
     public Game(GameManager gm){
+    	System.out.print("Start");
     	this.gm = gm;
     	b = new Board(gm, this);
     	gm.registerNewGameObject(b);
@@ -38,5 +38,17 @@ public class Game{
     public WaveManager getWm() {
 		return wm;
 	}
+    
+    public ArrayList<Enemy> getEnemielist(){
+		return enemielist;
+    }
+    
+    public int getBulletCounter() {
+		return BulletCounter;
+	}
+    
+    public void incrementBulletCounter() {
+    	BulletCounter++;
+    }
     
 }
