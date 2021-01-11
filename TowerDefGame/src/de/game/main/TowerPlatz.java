@@ -5,28 +5,19 @@ import de.ben.engine.GameObject;
 import de.ben.engine.Input;
 import de.ben.engine.Renderer;
 
-public class TowerPlatz extends GameObject{
+public class TowerPlatz extends BoardPlatz{
 
-	private GameManager gm;
-	private Game g;
 	private Tower mountedTower = null;
 
 	public TowerPlatz(String tag, float posX, float posY, int width, int height, GameManager gm, Game g) {
-		this.g = g;
-		this.gm = gm;
-		this.tag = "";
-		this.width = width;
-		this.height = height;
-		this.posX = posX;
-		this.posY = posY;
-		gm.registerNewGameObject(this);
+		super(tag, posY, posY, height, height, gm, g);
 	}
 	
 	@Override
 	public boolean clicked(GameContainer arg0, Input arg1) {
 		if(!isMounted()){
 			mountedTower = new Tower(this.tag+"_T",this.posX, this.posY, this.width, this.height, this.g, this.gm);
-			gm.registerNewGameObject(mountedTower);
+			this.gm.registerNewGameObject(mountedTower);
 		}
 		return false;
 	}

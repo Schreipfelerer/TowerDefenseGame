@@ -24,7 +24,6 @@ public class Tower extends GameObject{
 		this.height = height;
 		this.posX = posX;
 		this.posY = posY;
-		System.out.print("Tower");
 	}
 
 	public int getDamage() {
@@ -80,7 +79,6 @@ public class Tower extends GameObject{
 			if(this.range >= closestEnemyDistance){
 				if(closestEnemy != null) {
 					timeSinceLastShoot = 0;
-					System.out.println("Boom");
 					Bullet b = new Bullet(closestEnemy, (posX+(width/2)), (posY+(height/2)), "E"+game.getBulletCounter());
 					gm.registerNewGameObject(b);
 					game.incrementBulletCounter();

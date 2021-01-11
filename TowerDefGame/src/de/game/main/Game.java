@@ -18,7 +18,6 @@ public class Game{
     private int BulletCounter = 0;
     
     public Game(GameManager gm){
-    	System.out.print("Start");
     	this.gm = gm;
     	b = new Board(gm, this);
     	gm.registerNewGameObject(b);
